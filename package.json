@@ -12,10 +12,27 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {
+      "view/title": [
+        {
+          "command": "fileStructureGenerator.createFiles",
+          "group": "navigation"
+        },
+        {
+          "command": "fileStructureGenerator.createFiles",
+          "group": "inline"
+        }
+      ]
+    },
     "commands": [
       {
+        "command": "fileStructureGenerator.createFiles",
+        "title": "Structure Generator",
+        "icon": "media/icon.svg"
+      },
+      {
         "command": "structure-generator.helloWorld",
-        "title": "Hello World"
+        "title": "Hello 2"
       }
     ]
   },
