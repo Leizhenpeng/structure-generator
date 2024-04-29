@@ -34,28 +34,27 @@
     "configuration": {
       "title": "Structure Generator",
       "properties": {
-          "structure-generator.gptModel": {
-              "type": "string",
-              "default": "gpt-3.5-turbo",
-              "enum": [
-                  "gpt-3.5-turbo",
-                  "gpt-4-turbo"
-              ],
-              "markdownDescription": "ID of the model to use. See [Models Endpoint Compatibility](https://platform.openai.com/docs/models/model-endpoint-compatibility)"
-          },
-         
-          "structure-generator.baseURL": {
-              "type": "string",
-              "default": "https://api.openai.com/v1",
-              "markdownDescription": "Base URL for OpenAI API"
-          },
-          "structure-generator.apiKey": {
-              "type": "string",
-              "default": "sk-xxx",
-              "markdownDescription": "API Key for OpenAI API"
-          }
+        "structure-generator.gptModel": {
+          "type": "string",
+          "default": "gpt-3.5-turbo",
+          "enum": [
+            "gpt-3.5-turbo",
+            "gpt-4-turbo-2024-04-09"
+          ],
+          "markdownDescription": "ID of the model to use. See [Models Endpoint Compatibility](https://platform.openai.com/docs/models/model-endpoint-compatibility)"
+        },
+        "structure-generator.baseURL": {
+          "type": "string",
+          "default": "https://api.openai.com/v1",
+          "markdownDescription": "Base URL for OpenAI API"
+        },
+        "structure-generator.apiKey": {
+          "type": "string",
+          "default": "sk-xxx",
+          "markdownDescription": "API Key for OpenAI API"
+        }
       }
-  }
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
@@ -66,14 +65,24 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.88.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
-    "eslint": "^8.57.0",
-    "typescript": "^5.3.3",
     "@vscode/test-cli": "^0.0.8",
-    "@vscode/test-electron": "^2.3.9"
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@langchain/core": "latest",
+    "@langchain/openai": "^0.0.28",
+    "langchain": "^0.1.36"
+  },
+  "pnpm": {
+    "overrides": {
+      "@langchain/core": "latest"
+    }
   }
 }
