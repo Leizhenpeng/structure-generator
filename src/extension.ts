@@ -6,71 +6,55 @@ import * as vscode from 'vscode';
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "structure-generator" is now active!');
-
-	const treeDataProvider = {
-        getTreeItem: () => {
-            return new vscode.TreeItem("Generate Structure", vscode.TreeItemCollapsibleState.None);
-        },
-        getChildren: () => {
-            return Promise.resolve([]);
-        }
-    };
-
-    vscode.window.createTreeView('fileStructureView', { treeDataProvider });
+    // Use the console to output diagnostic information (console.log) and errors (console.error)
+    // This line of code will only be executed once when your extension is activated
+    console.log('Congratulations, your extension "structure-generator" is now active!');
 
     let disposable = vscode.commands.registerCommand('fileStructureGenerator.createFiles', () => {
         vscode.window.showInputBox({ prompt: 'Paste the structure here' }).then(input => {
             if (input) {
-				vscode.window.showInformationMessage(input);
-                console.log(input);
+                vscode.window.showInformationMessage(input);
             }
         });
     });
 
     context.subscriptions.push(disposable);
 
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	// let disposable = vscode.commands.registerCommand('structure-generator.helloWorld', () => {
-	// 	// The code you place here will be executed every time your command is executed
-	// 	// Display a message box to the user
-	// 	vscode.window.showInformationMessage('Hello World from Structure Generator!');
-	// });
-
-	context.subscriptions.push(disposable);
 }
 
-// function createFilesAndFolders(input:any) {
-//     const rootPath = vscode.workspace.workspaceFolders[0].uri; // 获取工作区的根路径
+function createFilesAndFolders(input: any) {
+    // let rootPath;
+    // if (vscode.workspace.workspaceFolders) {
+    //     rootPath = vscode.workspace.workspaceFolders[0].uri; // 获取工作区的根路径
+    // } else {
+    //     // 如果没有打开的工作区，你可以选择一个默认的根路径，或者提示用户选择一个路径
+    //     rootPath = vscode.Uri.file('/path/to/default/root');
+    // }
+    // input.split('\n').forEach(line => {
+    //     const trimmedLine = line.trim();
+    //     if (!trimmedLine) {
+    //         return;
+    //      } // 跳过空行
 
-//     input.split('\n').forEach(line => {
-//         const trimmedLine = line.trim();
-//         if (!trimmedLine) return; // 跳过空行
+    //     const depth = line.indexOf(trimmedLine[0]);
+    //     const relativePath = trimmedLine.split('#')[0].trim(); // 移除注释
+    //     const fullPath = vscode.Uri.file(path.join(rootPath.fsPath, relativePath));
 
-//         const depth = line.indexOf(trimmedLine[0]);
-//         const relativePath = trimmedLine.split('#')[0].trim(); // 移除注释
-//         const fullPath = vscode.Uri.file(path.join(rootPath.fsPath, relativePath));
+    //     if (relativePath.endsWith('/')) {
+    //         // 创建文件夹
+    //         vscode.workspace.fs.createDirectory(fullPath);
+    //     } else {
+    //         // 创建文件
+    //         vscode.workspace.fs.writeFile(fullPath, new Uint8Array(Buffer.from('Initial content', 'utf8')));
+    //     }
+    // });
 
-//         if (relativePath.endsWith('/')) {
-//             // 创建文件夹
-//             vscode.workspace.fs.createDirectory(fullPath);
-//         } else {
-//             // 创建文件
-//             vscode.workspace.fs.writeFile(fullPath, new Uint8Array(Buffer.from('Initial content', 'utf8')));
-//         }
-//     });
-
-//     vscode.window.showInformationMessage('文件和文件夹已创建');
-// }
+    vscode.window.showInformationMessage('文件和文件夹已创建');
+}
 
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
 
 module.exports = {
