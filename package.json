@@ -29,12 +29,33 @@
         "command": "fileStructureGenerator.createFiles",
         "title": "Structure Generator",
         "icon": "media/icon.svg"
-      },
-      {
-        "command": "structure-generator.helloWorld",
-        "title": "Hello 2"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Structure Generator",
+      "properties": {
+          "structure-generator.gptModel": {
+              "type": "string",
+              "default": "gpt-3.5-turbo",
+              "enum": [
+                  "gpt-3.5-turbo",
+                  "gpt-4-turbo"
+              ],
+              "markdownDescription": "ID of the model to use. See [Models Endpoint Compatibility](https://platform.openai.com/docs/models/model-endpoint-compatibility)"
+          },
+         
+          "structure-generator.baseURL": {
+              "type": "string",
+              "default": "https://api.openai.com/v1",
+              "markdownDescription": "Base URL for OpenAI API"
+          },
+          "structure-generator.apiKey": {
+              "type": "string",
+              "default": "sk-xxx",
+              "markdownDescription": "API Key for OpenAI API"
+          }
+      }
+  }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
