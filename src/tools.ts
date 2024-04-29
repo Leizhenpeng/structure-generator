@@ -1,6 +1,12 @@
+//
+// @ts-ignore
 import { DynamicTool } from "langchain/tools";
 import path from "path";
 import * as vscode from 'vscode';
+
+import { z } from "zod";
+import { DynamicStructuredTool } from "@langchain/core/tools";
+
 // Tool for creating a folder
 const createFolderTool = new DynamicTool({
   name: "create-folder",
@@ -54,4 +60,42 @@ const createFileTool = new DynamicTool({
 });
 
 
-export { createFolderTool, createFileTool };
+const batchCreateFilesTool = new DynamicStructuredTool({
+  name: "batch-create-files",
+  description: "Batch create files in VSCode with default comment content.",
+  schema: z.object({
+    fileNames: z.string().array(),
+  }),
+  func: async ({ fileNames }) => {
+    try {
+      const workspaceFolders = vscode.workspace.workspaceFolders;
+      if (!workspaceFolders || workspaceFolders.length === 0) {
+        return "No workspace folder is open.";
+      }
+      const workspacePath = workspaceFolders[0].uri.fsPath;
+
+      const results = [] as any[];
+
+      for (const fileName of fileNames) {
+        const filePath = path.join(workspacePath, fileName);
+        console.log('filePath', filePath);
+
+        // Default comment content
+        const defaultContent = "// Welcome to your new file!\n";
+        // Write file content
+        await vscode.workspace.fs.writeFile(vscode.Uri.file(filePath), Buffer.from(defaultContent));
+
+        results.push(`File "${fileName}" created successfully.`);
+      }
+
+      return results.join("\n");
+    } catch (error) {
+      return `Error creating files: ${error}`;
+    }
+  },
+});
+
+
+
+
+export { createFolderTool, createFileTool,batchCreateFilesTool};

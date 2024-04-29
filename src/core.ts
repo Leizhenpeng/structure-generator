@@ -1,5 +1,5 @@
 import { ChatOpenAI } from "langchain/chat_models/openai";
-import { createFileTool, createFolderTool } from "./tools";
+import { createFileTool, batchCreateFilesTool } from "./tools";
 import { AgentExecutor, createOpenAIFunctionsAgent } from "langchain/agents";
 import { ChatPromptTemplate, PromptTemplate } from "langchain/prompts";
 import exp from "constants";
@@ -24,7 +24,7 @@ const structureAgent = async (
   
   const tools = [
     createFileTool,
-    createFolderTool,
+    batchCreateFilesTool,
   ];
 
 

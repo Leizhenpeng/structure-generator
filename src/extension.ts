@@ -13,11 +13,12 @@ export function activate(context: vscode.ExtensionContext) {
 
     let disposable = vscode.commands.registerCommand('fileStructureGenerator.createFiles', async () => {
         vscode.window.showInputBox({ prompt: 'Paste the structure here' }).then(input => {
-            
             if (input) {
                 vscode.window.showInformationMessage('Generating structure...');
                 structureAgent(input).then((output) => {
                     vscode.window.showInformationMessage("Structure generated successfully");
+                }).catch((error) => {
+                    vscode.window.showErrorMessage(`Error generating structure: ${error}`);
                 });
             }
         });
