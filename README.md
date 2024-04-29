@@ -1,4 +1,4 @@
-# structure-generator 
+# structure-quick-generator 
 
 
 
