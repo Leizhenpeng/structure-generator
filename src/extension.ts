@@ -15,21 +15,10 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInputBox({ prompt: 'Paste the structure here' }).then(input => {
             
             if (input) {
-                structureAgent(input);
-                vscode.window.showInformationMessage(input);
-                // const workspaceFolders = vscode.workspace.workspaceFolders;
-                // if (!workspaceFolders || workspaceFolders.length === 0) {
-                //   return "No workspace folder is open.";
-                // }
-                // const workspacePath = workspaceFolders[0].uri.fsPath;
-                // const folderPath = path.join(workspacePath, input);
-                
-                // console.log('folderPath', folderPath);
-                
-                // const uri = vscode.Uri.file(folderPath);
-                // vscode.workspace.fs.createDirectory(uri);
-                // console.log('Creating folder:', input);
-      
+                vscode.window.showInformationMessage('Generating structure...');
+                structureAgent(input).then((output) => {
+                    vscode.window.showInformationMessage("Structure generated successfully");
+                });
             }
         });
     });
